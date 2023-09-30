@@ -12,5 +12,15 @@ public record DatosDireccion(
         @NotBlank
         String numero,
         @NotBlank
-        String complemento) {
+        String complemento
+) {
+    public DatosDireccion(Direccion direccion) {
+        this(
+                direccion.getCalle(),
+                direccion.getDistrito(),
+                direccion.getCiudad(),
+                direccion.getNumero(),
+                direccion.getComplemento()
+        );
+    }
 }

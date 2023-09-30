@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/medicos")
@@ -18,8 +20,12 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
 
     @PostMapping
-    public void registrarMedico(@RequestBody @Valid DatosRegistroMedico datosRegistroMedico) {
-        medicoRepository.save(new Medico(datosRegistroMedico));
+    public ResponseEntity<DatosRespuestaMedico> ResponseEntity(
+            @RequestBody @Valid DatosRegistroMedico datosRegistroMedico,
+            UriComponentsBuilder uriBuilder) {
+        Medico medico = medicoRepository.save(new Medico(datosRegistroMedico));
+        URI uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DatosRespuestaMedico(medico));
     }
 
     @GetMapping
@@ -29,16 +35,23 @@ public class MedicoController {
 
     @PutMapping
     @Transactional
-    public void actualizarMedico(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico){
+    public ResponseEntity<DatosRespuestaMedico> actualizarMedico(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico){
         Medico medico = medicoRepository.getReferenceById(datosActualizarMedico.id());
         medico.actualizarDatos(datosActualizarMedico);
-        // medicoRepository.save(medico);
+        return ResponseEntity.ok(new DatosRespuestaMedico(medico));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void eliminarMedico(@PathVariable Long id){
+    public ResponseEntity eliminarMedico(@PathVariable Long id){
         Medico medico = medicoRepository.getReferenceById(id);
         medico.desactivar();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosRespuestaMedico> listarUnMedico(@PathVariable Long id){
+        Medico medico = medicoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DatosRespuestaMedico(medico));
     }
 }
