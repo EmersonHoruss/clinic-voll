@@ -27,6 +27,7 @@ public class Medico {
     private Direccion direccion;
 
     public Medico(DatosRegistroMedico datosRegistroMedico) {
+        this.activo = true;
         this.nombre = datosRegistroMedico.nombre();
         this.telefono = datosRegistroMedico.telefono();
         this.email = datosRegistroMedico.email();
