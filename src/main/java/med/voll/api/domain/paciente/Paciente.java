@@ -1,17 +1,17 @@
-package med.voll.api.domain.medico;
+package med.voll.api.domain.paciente;
 
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.domain.direccion.Direccion;
 
-@Table(name = "medicos")
-@Entity(name = "Medico")
+@Table(name = "pacientes")
+@Entity(name = "Paciente")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Medico {
+public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,22 +21,19 @@ public class Medico {
     private String email;
     private String documento;
     private Boolean activo;
-    @Enumerated(EnumType.STRING)
-    private Especialidad especialidad;
     @Embedded
     private Direccion direccion;
 
-    public Medico(DatosRegistroMedico datosRegistro) {
+    public Paciente(DatosRegistroPaciente datosRegistro) {
         this.activo = true;
         this.nombre = datosRegistro.nombre();
         this.telefono = datosRegistro.telefono();
         this.email = datosRegistro.email();
         this.documento = datosRegistro.documento();
-        this.especialidad = datosRegistro.especialidad();
         this.direccion = new Direccion(datosRegistro.direccion());
     }
 
-    public void actualizarDatos(DatosActualizarMedico datosActualizar) {
+    public void actualizarDatos(DatosActualizarPaciente datosActualizar) {
         if (datosActualizar.nombre() != null) {
             this.nombre = datosActualizar.nombre();
         }

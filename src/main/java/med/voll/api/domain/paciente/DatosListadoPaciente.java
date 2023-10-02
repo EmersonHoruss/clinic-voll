@@ -1,17 +1,15 @@
-package med.voll.api.domain.medico;
+package med.voll.api.domain.paciente;
 
-public record DatosListadoMedico(
+public record DatosListadoPaciente(
         Long id,
         String nombre,
-        String especialidad,
         String documento,
         String email
 ) {
-    public DatosListadoMedico(Medico entity){
+    public DatosListadoPaciente(Paciente entity){
         this(
                 entity.getId(),
                 entity.getNombre(),
-                entity.getEspecialidad().toString(),
                 entity.getDocumento(),
                 entity.getEmail()
         );

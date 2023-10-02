@@ -17,26 +17,26 @@ import java.net.URI;
 @RequestMapping("/medicos")
 public class MedicoController {
     @Autowired
-    private MedicoRepository medicoRepository;
+    private MedicoRepository repository;
 
     @PostMapping
     public ResponseEntity<DatosRespuestaMedico> ResponseEntity(
             @RequestBody @Valid DatosRegistroMedico datosRegistroMedico,
             UriComponentsBuilder uriBuilder) {
-        Medico medico = medicoRepository.save(new Medico(datosRegistroMedico));
+        Medico medico = repository.save(new Medico(datosRegistroMedico));
         URI uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosRespuestaMedico(medico));
     }
 
     @GetMapping
     public Page<DatosListadoMedico> listadoMedicos(@PageableDefault(size = 2) Pageable paginacion){
-        return medicoRepository.findByActivoTrue(paginacion).map(DatosListadoMedico::new);
+        return repository.findByActivoTrue(paginacion).map(DatosListadoMedico::new);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity<DatosRespuestaMedico> actualizarMedico(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico){
-        Medico medico = medicoRepository.getReferenceById(datosActualizarMedico.id());
+        Medico medico = repository.getReferenceById(datosActualizarMedico.id());
         medico.actualizarDatos(datosActualizarMedico);
         return ResponseEntity.ok(new DatosRespuestaMedico(medico));
     }
@@ -44,14 +44,14 @@ public class MedicoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity eliminarMedico(@PathVariable Long id){
-        Medico medico = medicoRepository.getReferenceById(id);
+        Medico medico = repository.getReferenceById(id);
         medico.desactivar();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DatosRespuestaMedico> listarUnMedico(@PathVariable Long id){
-        Medico medico = medicoRepository.getReferenceById(id);
+        Medico medico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DatosRespuestaMedico(medico));
     }
 }
