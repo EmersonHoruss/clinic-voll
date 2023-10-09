@@ -19,8 +19,8 @@ public class ConsultaController {
     @Autowired
     private ConsultaService service;
 
-    /*@Autowired
-    private ConsultaRepository repository;*/
+    @Autowired
+    private ConsultaRepository repository;
 
     @PostMapping
     @Transactional
@@ -31,10 +31,8 @@ public class ConsultaController {
         Consulta consulta = service.save(datosRegistro);
         URI uri = uriBuilder.path("/consultas/{id}").buildAndExpand(consulta.getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosRespuestaConsulta(consulta));
-        /**/
-        //return null;
     }
-/*
+
     @GetMapping
     public Page<DatosListadoConsulta> listar(@PageableDefault(size = 2) Pageable paginacion) {
         return repository.findAll(paginacion).map(DatosListadoConsulta::new);
@@ -52,5 +50,5 @@ public class ConsultaController {
     public ResponseEntity<DatosRespuestaConsulta> listarPorId(@PathVariable Long id) {
         Consulta consulta = repository.getReferenceById(id);
         return ResponseEntity.ok(new DatosRespuestaConsulta(consulta));
-    }*/
+    }
 }

@@ -24,7 +24,7 @@ public class CancelacionNoDisponible implements ConsultaCancelacionValidacionInt
         Consulta consulta = consultaRepository.getReferenceById(datosEntrada.id());
         LocalDateTime fechaConsulta = consulta.getDate();
         LocalDateTime ahora = LocalDateTime.now();
-        boolean esPosibleCancelar = Duration.between(ahora,fechaConsulta).toHours() < LIMIT_HOURS_TO_CANCEL;
+        boolean esPosibleCancelar = Duration.between(ahora,fechaConsulta).toHours() >= LIMIT_HOURS_TO_CANCEL;
         if(!esPosibleCancelar){
             throw new ValidationException(ERROR_MESSAGE);
         }

@@ -35,4 +35,8 @@ public class Consulta {
         this.paciente = paciente;
         this.date = date;
     }
+
+    public void cancelar(Cancelacion cancelacion) {
+        this.cancelacion = cancelacion;
+    }
 }

@@ -45,7 +45,9 @@ public class ConsultaService {
     }
 
     public Consulta cancel(DatosCancelarConsulta datosCancelar) {
-
-        return null;
+        Consulta consulta = consultaRepository.getReferenceById(datosCancelar.id());
+        validadoresDeCancelacionDeConsulta.forEach(v -> v.validar(datosCancelar));
+        consulta.cancelar(datosCancelar.cancelacion());
+        return consultaRepository.save(consulta);
     }
 }
