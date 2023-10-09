@@ -20,7 +20,8 @@ public class PacienteController {
     private PacienteRepository repository;
 
     @PostMapping
-    public ResponseEntity<DatosRespuestaPaciente> ResponseEntity(
+    @Transactional
+    public ResponseEntity<DatosRespuestaPaciente> registrar(
             @RequestBody @Valid DatosRegistroPaciente datosRegistroPaciente,
             UriComponentsBuilder uriBuilder) {
         Paciente paciente = repository.save(new Paciente(datosRegistroPaciente));
@@ -29,13 +30,13 @@ public class PacienteController {
     }
 
     @GetMapping
-    public Page<DatosListadoPaciente> listadoPacientes(@PageableDefault(size = 2) Pageable paginacion){
+    public Page<DatosListadoPaciente> listar(@PageableDefault(size = 2) Pageable paginacion){
         return repository.findByActivoTrue(paginacion).map(DatosListadoPaciente::new);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DatosRespuestaPaciente> actualizarPaciente(@RequestBody @Valid DatosActualizarPaciente datosActualizarPaciente){
+    public ResponseEntity<DatosRespuestaPaciente> actualizar(@RequestBody @Valid DatosActualizarPaciente datosActualizarPaciente){
         Paciente paciente = repository.getReferenceById(datosActualizarPaciente.id());
         paciente.actualizarDatos(datosActualizarPaciente);
         return ResponseEntity.ok(new DatosRespuestaPaciente(paciente));
@@ -43,14 +44,14 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity eliminarPaciente(@PathVariable Long id){
+    public ResponseEntity eliminar(@PathVariable Long id){
         Paciente paciente = repository.getReferenceById(id);
         paciente.desactivar();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DatosRespuestaPaciente> listarUnPaciente(@PathVariable Long id){
+    public ResponseEntity<DatosRespuestaPaciente> listarPorId(@PathVariable Long id){
         Paciente paciente = repository.getReferenceById(id);
         return ResponseEntity.ok(new DatosRespuestaPaciente(paciente));
     }

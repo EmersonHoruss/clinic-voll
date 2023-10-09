@@ -20,7 +20,8 @@ public class MedicoController {
     private MedicoRepository repository;
 
     @PostMapping
-    public ResponseEntity<DatosRespuestaMedico> ResponseEntity(
+    @Transactional
+    public ResponseEntity<DatosRespuestaMedico> registrar(
             @RequestBody @Valid DatosRegistroMedico datosRegistroMedico,
             UriComponentsBuilder uriBuilder) {
         Medico medico = repository.save(new Medico(datosRegistroMedico));
@@ -29,13 +30,13 @@ public class MedicoController {
     }
 
     @GetMapping
-    public Page<DatosListadoMedico> listadoMedicos(@PageableDefault(size = 2) Pageable paginacion){
+    public Page<DatosListadoMedico> listar(@PageableDefault(size = 2) Pageable paginacion) {
         return repository.findByActivoTrue(paginacion).map(DatosListadoMedico::new);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DatosRespuestaMedico> actualizarMedico(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico){
+    public ResponseEntity<DatosRespuestaMedico> actualizar(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico) {
         Medico medico = repository.getReferenceById(datosActualizarMedico.id());
         medico.actualizarDatos(datosActualizarMedico);
         return ResponseEntity.ok(new DatosRespuestaMedico(medico));
@@ -43,14 +44,14 @@ public class MedicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity eliminarMedico(@PathVariable Long id){
+    public ResponseEntity eliminarMedico(@PathVariable Long id) {
         Medico medico = repository.getReferenceById(id);
         medico.desactivar();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DatosRespuestaMedico> listarUnMedico(@PathVariable Long id){
+    public ResponseEntity<DatosRespuestaMedico> listarPorId(@PathVariable Long id) {
         Medico medico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DatosRespuestaMedico(medico));
     }

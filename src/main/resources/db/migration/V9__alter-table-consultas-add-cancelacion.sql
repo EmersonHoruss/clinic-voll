@@ -1,0 +1,1 @@
+alter table consultas add cancelacion varchar(100);
