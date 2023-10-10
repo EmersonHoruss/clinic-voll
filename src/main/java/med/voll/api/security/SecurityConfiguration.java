@@ -26,12 +26,16 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,"/autenticacion/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+                .and().authorizeHttpRequests(
+                        (authz) -> authz
+                                .requestMatchers(HttpMethod.POST, "/autenticacion/login")
+                                .permitAll()
+                                .requestMatchers(
+                                        "/docs-ui/**", "/swagger-ui/**", "/docs/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -42,7 +46,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
