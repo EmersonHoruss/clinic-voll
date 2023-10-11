@@ -4,10 +4,12 @@ Thank to Alura and Oracle to give schollarships. This project was realized in th
 
 ## Usage
 To use you have to generate a JWT. To generate you have to send a post request to the [server]/autenticacion/login (server could be http://localhost or https://clinic-voll.onrender.com) and fill the body request with login and contrasenia. Where login is the user and contrasenia es la contraseña.
+
 After that you can access with that token to any url(/pacientes, /medicos, /usuarios y /consultas). Do not forget the token because it is a useless state api.
 
 ## Deployed
 Use https://clinic-voll.onrender.com to access to the deployed project.
+
 Some detaild you may know, it is deployes by two server: one for backend an another for database from differents providers, the first is onrender and the other is HelioHost.
 
 ## Documentation
@@ -18,4 +20,5 @@ You can use the deployed or the local. So:
 
 ## Users
 User: root
+
 Password: root
