@@ -14,8 +14,11 @@ Some detaild you may know, it is deployes by two server: one for backend an anot
 
 ## Documentation
 You can use the deployed or the local. So:
--> http://locahost:8080/docs or https://clinic-voll.onrender.com/docs to get into JSON documentation
--> http://localhost:8080/docs-ui or https://clinic-voll.onrender.com/docs-ui to get into user interface documentation
+
+-> http://locahost:8080/docs or https://clinic-voll.onrender.com/docs to get into JSON documentation.
+
+-> http://localhost:8080/docs-ui or https://clinic-voll.onrender.com/docs-ui to get into user interface documentation.
+
 -> You can also download the clinic-voll.postman_collection.json placed in the root of the project and import in your postman. This has some pre defined examples ready to use.
 
 ## Users
