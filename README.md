@@ -25,3 +25,11 @@ You can use the deployed or the local. So:
 User: root
 
 Password: root
+
+## Resources
+SpaceWork: https://trello.com/invite/b/FTfS6Ea2/ATTIfc689ee3e99687ab2633bd599692f411B1155325/clinic-voll
+
+User interface: https://www.figma.com/file/R2M12M4L5B3ciBbwdQxtoe/alura-clinic-voll?type=design&node-id=0%3A1&mode=design&t=zVw6UgfN2Ja6BSSX-1
+
+## Thanks Alura Latam & Oracle
+Thank you so much <3. I love them. 
