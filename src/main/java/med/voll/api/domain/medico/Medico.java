@@ -40,8 +40,8 @@ public class Medico {
         if (datosActualizar.nombre() != null) {
             this.nombre = datosActualizar.nombre();
         }
-        if (datosActualizar.documento() != null) {
-            this.documento = datosActualizar.documento();
+        if (datosActualizar.telefono() != null) {
+            this.telefono = datosActualizar.telefono();
         }
         if(datosActualizar.direccion() != null){
             this.direccion.actualizarDatos(datosActualizar.direccion());

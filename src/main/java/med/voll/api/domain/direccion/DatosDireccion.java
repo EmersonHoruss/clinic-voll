@@ -9,9 +9,7 @@ public record DatosDireccion(
         String distrito,
         @NotBlank
         String ciudad,
-        @NotBlank
         String numero,
-        @NotBlank
         String complemento
 ) {
     public DatosDireccion(Direccion direccion) {
