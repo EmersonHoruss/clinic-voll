@@ -10,10 +10,8 @@ import java.util.ArrayList;
 public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry){
-        String allOrigins = "*";
         registry.addMapping("/**")
-                .allowedOrigins(allOrigins)
+                .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
-        //, "OPTIONS", "HEAD", "TRACE","CONNECT"
     }
 }
